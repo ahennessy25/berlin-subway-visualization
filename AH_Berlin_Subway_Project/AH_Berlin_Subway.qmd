@@ -1,0 +1,176 @@
+---
+title: "AH_Berlin_Map"
+format: pdf
+editor: visual
+editor_options: 
+  chunk_output_type: inline
+---
+
+## Quarto
+
+Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+
+## Running Code
+
+When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+
+```{r}
+library(devtools)
+```
+
+You can add options to executable code like this
+
+```{r}
+library(d6berlin)
+```
+
+```{r}
+library(sf)
+```
+
+```{r}
+library(ggplot2)
+```
+
+```{r}
+ggplot() + 
+  geom_sf(data = d6berlin::sf_berlin)
+```
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+Berlin_Subway_Lines <- read_csv("data/BerlinSubwayLines.csv")
+Berlin_Subway_Lines
+
+Berlin_Subway_Lines_Revised <- sf::st_as_sf(Berlin_Subway_Lines, wkt = "geometry")
+Berlin_Subway_Lines_Revised
+
+st_crs(Berlin_Subway_Lines_Revised) <- 4326
+```
+
+```{r}
+ggplot() +
+  geom_sf(data = Berlin_Subway_Lines_Revised, aes(color = Line_ID, group = Line_ID)) +
+  scale_color_manual(values = c(U1 = "green", U2 = "red", U3="darkgreen", U4 = "yellow", U5 = "brown", U6 = "purple", U7 = "lightblue",
+                                U8 = "blue", U9 = "orange")) +
+    #coord_sf(xlim = c(13.3, 13.4), ylim = c(52.48, 52.52)) 
+    coord_sf(xlim = c(13.08, 13.76), ylim = c(52.33, 52.68)) 
+```
+
+```{r}
+d6berlin::sf_districts
+```
+
+```{r}
+Berlin_Subway_Stations <- read_csv("data/BerlinSubwayStationsRev.csv")
+Berlin_Subway_Stations
+
+#This converts the "geometry" column of the subway stations excel file immediately above from a character column into a a geometry point column. 
+Berlin_Subway_Stations_Rev <- sf::st_as_sf(Berlin_Subway_Stations, wkt = "geometry")
+Berlin_Subway_Stations_Rev
+
+#This assigns the shapefile produced immediately above the coordinate reference system (crs) to the value of 4326. It is assigned to the value 4326 because when the crs value equals 4326, the values of each of the stations in this dataset are put onto a latitude/longitude map.
+st_crs(Berlin_Subway_Stations_Rev) <- 4326
+
+#This reveals a latitude/longitude map of the stations. They are each color coded by the color each of these lines are assigned to in real life. U1 is red, U2 is purple, U3 is orange, U4 is green and U6 is brown. The stations where the subway lines intersect are color coded in white and are called "Intersection" subway stations.  
+ggplot() +
+  geom_sf(data = Berlin_Subway_Stations_Rev, aes(color = Station_Line)) +
+  scale_color_manual(values = c(Intersection = "white", U1 = "green", U2 = "red", U3="darkgreen", U4 = "yellow", U5 = "brown", U6 = "purple", U7 = "lightblue", U8 = "blue", U9 = "orange")) +
+  #coord_sf(xlim = c(13.3, 13.4), ylim = c(52.48, 52.52)) 
+  coord_sf(xlim = c(13.08, 13.76), ylim = c(52.33, 52.68))
+```
+
+```{r}
+ggplot() +
+  ggtitle("Berlin U-Bahn Subway Metro Map") + #This makes the title
+  theme(plot.title = element_text(hjust = 0.55)) + #This is what helps centralize the title. I made a slight horizontal rightward tilt to improve the display of the map, as it helps make the title align more with the location of the northernmost part of Vienna. rm
+  geom_sf(data = d6berlin::sf_berlin) + #This is the first layer. The one that is in the very back. This belongs in the very back because any layer that is further back than the shapefile of the city-state of Vienna would completely block the viewing of any layers with data including latitude and longitude coordinates within Vienna. And we would not want any of the other layers in this code to be completely invisible. 
+  geom_sf(data = Berlin_Subway_Lines_Revised, aes(color = Line_ID, group = Line_ID)) +
+  geom_sf(data = Berlin_Subway_Stations_Rev, aes(color = Station_Line)) +
+  scale_color_manual(values = c(Intersection = "white", U1 = "green", U2 = "red", U3="forestgreen", U4 = "yellow", U5 = "brown", U6 = "purple", U7 = "lightblue", U8 = "blue", U9 = "orange"), breaks = c("Intersection", "U1", "U2", "U3", "U4", "U5", "U6", "U7", "U8", "U9")) + 
+  coord_sf(xlim = c(13.3, 13.4), ylim = c(52.48, 52.52))
+  #coord_sf(xlim = c(13.08, 13.76), ylim = c(52.33, 52.68))
+```
+
+```{r}
+library(plotly)
+```
+
+```{r}
+ggplotly(
+ ggplot() +
+ ggtitle("Berlin U-Bahn Subway Metro Map") +
+  geom_sf(data = d6berlin::sf_berlin) + #This is the first layer and the one in the very back. 
+  geom_sf(data = Berlin_Subway_Lines_Revised, aes(color = Line_ID, group = Line_ID)) + #This is the second layer and it is in the middle. 
+  geom_sf(data = Berlin_Subway_Stations_Rev, color = Berlin_Subway_Stations_Rev$Station_Color, aes(group = Station_Name)) +
+  #geom_sf(data = Berlin_Subway_Stations_Rev, color = Berlin_Subway_Stations_Rev$Station_Color, aes(color = Station_Name)) +#This is the third layer and it is in the front. The column assigned to the group value in the aes here, "Station_Name", is the data that will appear when you hover over an individual station. 
+  scale_color_manual(values = c("green", "red", "forestgreen", "yellow", "brown", "purple", "lightblue", "blue", "orange")) +
+  #coord_sf(xlim = c(13.3, 13.4), ylim = c(52.48, 52.52))
+  coord_sf(xlim = c(13.00, 13.75), ylim = c(52.33, 52.68))#This manually assigns the five colors in this line of code to the values from the column in the second layer that is assigned to the color value in aes, "Line_ID." The "Line_ID" values are sorted in alphabetical and numerical order making U1 the first value and U6 the last value. To keep the colors the same as they were in previous lines of this code, this means that red is the first color (U1), purple is the second color (U2), orange is the third color (U3), green is the fourth color (U4) and brown is the fifth color (U6). It is these five values from "Line_ID" that appear in the legend on the right and they appear in their proper colors.  
+)
+```
+
+```{r}
+ggplotly(
+ ggplot() +
+ ggtitle("Berlin U-Bahn Subway Metro Map") +
+  geom_sf(data = d6berlin::sf_berlin) + #This is the first layer and the one in the very back. 
+  geom_sf(data = Berlin_Subway_Lines_Revised, aes(color = Line_ID, group = Line_ID)) + #This is the second layer and it is in the middle. 
+  geom_sf(data = Berlin_Subway_Stations_Rev, color = Berlin_Subway_Stations_Rev$Station_Color, aes(group = Station_Name)) +
+  #geom_sf(data = Berlin_Subway_Stations_Rev, color = Berlin_Subway_Stations_Rev$Station_Color, aes(color = Station_Name)) +#This is the third layer and it is in the front. The column assigned to the group value in the aes here, "Station_Name", is the data that will appear when you hover over an individual station. 
+  scale_color_manual(values = c("green", "red", "forestgreen", "yellow", "brown", "purple", "lightblue", "blue", "orange")) +
+   coord_sf(xlim = c(13.0, 13.4), ylim = c(52.50, 52.68))
+  #coord_sf(xlim = c(13.3, 13.4), ylim = c(52.48, 52.52))
+  #coord_sf(xlim = c(13.08, 13.76), ylim = c(52.33, 52.68))#This manually assigns the five colors in this line of code to the values from the column in the second layer that is assigned to the color value in aes, "Line_ID." The "Line_ID" values are sorted in alphabetical and numerical order making U1 the first value and U6 the last value. To keep the colors the same as they were in previous lines of this code, this means that red is the first color (U1), purple is the second color (U2), orange is the third color (U3), green is the fourth color (U4) and brown is the fifth color (U6). It is these five values from "Line_ID" that appear in the legend on the right and they appear in their proper colors.  
+)
+```
+
+```{r}
+ggplotly(
+ ggplot() +
+ ggtitle("Berlin U-Bahn Subway Metro Map") +
+  geom_sf(data = d6berlin::sf_berlin) + #This is the first layer and the one in the very back. 
+  geom_sf(data = Berlin_Subway_Lines_Revised, aes(color = Line_ID, group = Line_ID)) + #This is the second layer and it is in the middle. 
+  geom_sf(data = Berlin_Subway_Stations_Rev, color = Berlin_Subway_Stations_Rev$Station_Color, aes(group = Station_Name)) +
+  #geom_sf(data = Berlin_Subway_Stations_Rev, color = Berlin_Subway_Stations_Rev$Station_Color, aes(color = Station_Name)) +#This is the third layer and it is in the front. The column assigned to the group value in the aes here, "Station_Name", is the data that will appear when you hover over an individual station. 
+  scale_color_manual(values = c("green", "red", "forestgreen", "yellow", "brown", "purple", "lightblue", "blue", "orange")) +
+   coord_sf(xlim = c(13.4, 13.8), ylim = c(52.50, 52.68))
+  #coord_sf(xlim = c(13.3, 13.4), ylim = c(52.48, 52.52))
+  #coord_sf(xlim = c(13.08, 13.76), ylim = c(52.33, 52.68))#This manually assigns the five colors in this line of code to the values from the column in the second layer that is assigned to the color value in aes, "Line_ID." The "Line_ID" values are sorted in alphabetical and numerical order making U1 the first value and U6 the last value. To keep the colors the same as they were in previous lines of this code, this means that red is the first color (U1), purple is the second color (U2), orange is the third color (U3), green is the fourth color (U4) and brown is the fifth color (U6). It is these five values from "Line_ID" that appear in the legend on the right and they appear in their proper colors.  
+)
+```
+
+```{r}
+ggplotly(
+ ggplot() +
+ ggtitle("Berlin U-Bahn Subway Metro Map") +
+  geom_sf(data = d6berlin::sf_berlin) + #This is the first layer and the one in the very back. 
+  geom_sf(data = Berlin_Subway_Lines_Revised, aes(color = Line_ID, group = Line_ID)) + #This is the second layer and it is in the middle. 
+  geom_sf(data = Berlin_Subway_Stations_Rev, color = Berlin_Subway_Stations_Rev$Station_Color, aes(group = Station_Name)) +
+  #geom_sf(data = Berlin_Subway_Stations_Rev, color = Berlin_Subway_Stations_Rev$Station_Color, aes(color = Station_Name)) +#This is the third layer and it is in the front. The column assigned to the group value in the aes here, "Station_Name", is the data that will appear when you hover over an individual station. 
+  scale_color_manual(values = c("green", "red", "forestgreen", "yellow", "brown", "purple", "lightblue", "blue", "orange")) +
+   coord_sf(xlim = c(13.0, 13.42), ylim = c(52.33, 52.52))
+  #coord_sf(xlim = c(13.3, 13.4), ylim = c(52.48, 52.52))
+  #coord_sf(xlim = c(13.08, 13.76), ylim = c(52.33, 52.68))#This manually assigns the five colors in this line of code to the values from the column in the second layer that is assigned to the color value in aes, "Line_ID." The "Line_ID" values are sorted in alphabetical and numerical order making U1 the first value and U6 the last value. To keep the colors the same as they were in previous lines of this code, this means that red is the first color (U1), purple is the second color (U2), orange is the third color (U3), green is the fourth color (U4) and brown is the fifth color (U6). It is these five values from "Line_ID" that appear in the legend on the right and they appear in their proper colors.  
+)
+```
+
+```{r}
+ggplotly(
+ ggplot() +
+ ggtitle("Berlin U-Bahn Subway Metro Map") +
+  geom_sf(data = d6berlin::sf_berlin) + #This is the first layer and the one in the very back. 
+  geom_sf(data = Berlin_Subway_Lines_Revised, aes(color = Line_ID, group = Line_ID)) + #This is the second layer and it is in the middle. 
+  geom_sf(data = Berlin_Subway_Stations_Rev, color = Berlin_Subway_Stations_Rev$Station_Color, aes(group = Station_Name)) +
+  #geom_sf(data = Berlin_Subway_Stations_Rev, color = Berlin_Subway_Stations_Rev$Station_Color, aes(color = Station_Name)) +#This is the third layer and it is in the front. The column assigned to the group value in the aes here, "Station_Name", is the data that will appear when you hover over an individual station. 
+  scale_color_manual(values = c("green", "red", "forestgreen", "yellow", "brown", "purple", "lightblue", "blue", "orange")) +
+   coord_sf(xlim = c(13.4, 13.8), ylim = c(52.33, 52.52))
+  #coord_sf(xlim = c(13.3, 13.4), ylim = c(52.48, 52.52))
+  #coord_sf(xlim = c(13.08, 13.76), ylim = c(52.33, 52.68))#This manually assigns the five colors in this line of code to the values from the column in the second layer that is assigned to the color value in aes, "Line_ID." The "Line_ID" values are sorted in alphabetical and numerical order making U1 the first value and U6 the last value. To keep the colors the same as they were in previous lines of this code, this means that red is the first color (U1), purple is the second color (U2), orange is the third color (U3), green is the fourth color (U4) and brown is the fifth color (U6). It is these five values from "Line_ID" that appear in the legend on the right and they appear in their proper colors.  
+)
+```
+
+The `echo: false` option disables the printing of code (only output is displayed).

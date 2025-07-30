@@ -1,0 +1,127 @@
+﻿Station,Line,Opened,Situation
+Adenauerplatz,U7,28-Apr-78,underground
+African Road,U6,3-May-56,underground
+Alexanderplatz,U2,1-Jul-13,underground
+,U5,21-Dec-30,
+,U8,18-Apr-30,
+Alt-Mariendorf,U6,28-Feb-66,underground
+Alt-Tegel,U6,29-May-58,underground
+Alt-Tempelhof,U6,28-Feb-66,underground
+Old Town Spandau,U7,1-Oct-84,underground
+Amrumer Straße,U9,28-Aug-61,underground
+Augsburger Straße,U3,8-May-61,underground
+Gesundbrunnen,U8,18-Apr-30,underground
+Gleisdreieck,U1,3-Nov-12,elevated
+,U2,,
+,U3,,
+Gneisenaustraße,U7,19-Apr-24,underground
+Görlitztrainstation,U1,18-Feb-02,elevated
+Grenzallee,U7,21-Dec-30,underground
+Güntzelstraße,U9,29-Jan-71,underground
+,,,
+Halemweg,U7,1-Oct-80,underground
+HalleschesTor,U1,18-Feb-02,elevated
+,U3,,
+,U6,30-Jan-23,underground
+Hansaplatz,U9,28-Aug-61,underground
+Haselhorst,U7,1-Oct-84,underground
+Central station,U5,8-Aug-09,underground
+Hausvogteiplatz,U2,1-Oct-08,underground
+Heidelberger Platz,U3,12-Oct-13,underground
+Heinrich-Heine-Straße,U8,6-Apr-28,underground
+Hellersdorf,U5,1-Jul-89,open cut
+Hermannplatz,U7,11-Apr-26,underground
+,U8,17-Jul-27,
+Hermannstraße,U8,13-Jul-96,underground
+Hönow,U5,1-Jul-89,at grade
+Hohenzollernplatz,U3,12-Oct-13,underground
+Holzhauser Straße,U6,31-May-58,Embankment
+Kaiserdamm,U2,29-Mar-08,underground
+Kaiserin-Augusta-Straße,U6,28-Feb-66,underground
+Karl Bonhoeffer Psychiatric Clinic,U8,24-Sep-94,underground
+Karl-Marx-Straße,U7,11-Apr-26,underground
+Kaulsdorf-Nord,U5,1-Jul-89,open cut
+Kienberg (Gardens of the World),U5,1-Jul-89,open cut
+Kleistpark,U7,29-Jan-71,underground
+Klosterstraße,U2,1-Jul-13,underground
+Kochstraße,U6,30-Jan-23,underground
+Konstanzer Straße,U7,28-Apr-78,underground
+Kottbusser Tor,U1,18-Feb-02,elevated
+,U3,,
+,U8,12-Feb-28,underground
+Crooked Lanke,U3,22-Dec-29,open cut
+Kurfürstendamm,U1,2-Sep-61,underground
+,U9,28-Aug-61,
+Kurfürstenstraße,U1,26-Oct-26,underground
+,U3,,
+Kurt-Schumacher-Platz,U6,3-May-56,underground
+Magdalenenstraße,U5,21-Dec-30,underground
+Märkisches Museum,U2,1-Jul-13,underground
+Mehringdamm,U6,7-Apr-24,underground
+,U7,,
+Mendelssohn Bartholdy Park,U2,2-Oct-98,elevated
+Mierendorffplatz,U7,1-Oct-80,underground
+MöckernBridge,U1,18-Feb-02,elevated
+,U3,,
+,U7,28-Feb-66,underground
+Mohrenstraße,U2,1-Oct-08,underground
+Moritzplatz,U8,6-Apr-28,underground
+Museum Island,U5,9-Jul-21,underground
+Natural History Museum,U6,30-Jan-23,underground
+Nauener Platz,U9,30-Apr-76,underground
+Neu-Westend,U2,20-May-22,underground
+Neukölln,U7,21-Dec-30,underground
+Nollendorfplatz,U2,11-Mar-02,elevated
+,U1,26-Oct-26,underground
+,U3,,
+,U4,,
+Pankow,U2,16-Aug-00,underground
+Pankstraße,U8,5-Oct-77,underground
+Paracelsus Bath,U8,30-Apr-87,underground
+Paradestraße,U6,10-Sep-27,underground
+Parchimer Allee,U7,28-Sep-63,underground
+Paulsternstraße,U7,1-Oct-84,underground
+Airlift Square,U6,14-Feb-26,underground
+Podbielskiallee,U3,12-Oct-13,open cut
+Potsdamer Platz,U2,18-Feb-02,underground
+Prinzenstraße,U1,18-Aug-02,elevated
+,U3,,
+Samaritan Road,U5,21-Dec-30,underground
+Scharnweberstraße,U6,31-May-58,Embankment
+Schillingstraße,U5,21-Dec-30,underground
+Silesian Gate,U1,18-Feb-02,elevated
+,U3,,
+Schloßstraße,U9,30-Sep-74,underground
+Schönhauser Allee,U2,27-Jul-13,elevated
+Schönleinstraße,U8,17-Jul-27,underground
+Schwartzkopffstraße,U6,8-Mar-23,underground
+Seestraße,U6,8-Mar-23,underground
+Senefelderplatz,U2,27-Jul-13,underground
+Siemensdamm,U7,1-Oct-80,underground
+Sophie-Charlotte-Platz,U2,29-Mar-08,underground
+Spichernstraße,U3,2-Jun-59,underground
+,U9,28-Aug-61,
+Spittelmarkt,U2,1-Oct-08,underground
+Downtown,U2,1-Oct-08,underground
+,U6,30-Jan-23,
+Strausberger Platz,U5,21-Dec-30,underground
+Südstern,U7,14-Dec-24,underground
+Uhlandstraße,U1,12-Oct-13,underground
+Ullsteinstraße,U6,28-Feb-66,underground
+Unter den Linden,U5,4-Dec-20,underground
+,,,
+Walther-Schreiber-Platz,U9,29-Jan-71,underground
+WarschauerStraße,U1,17-Aug-02,elevated
+,U3,,
+Weberwiese,U5,21-Dec-30,underground
+Wedding,U6,8-Mar-23,underground
+Weinmeisterstraße,U8,18-Apr-30,underground
+West Harbour,U9,28-Aug-61,underground
+Westphalweg,U6,28-Feb-66,underground
+Wilmersdorfer Straße,U7,28-Apr-78,underground
+Wittenau,U8,24-Sep-94,underground
+Wittenbergplatz,U1,11-Mar-02,underground
+,U2,,
+,U3,,
+Wuhletal,U5,1-Jul-89,Embankment
+Wutzkyallee,U7,2-Jan-70,underground
